@@ -23,3 +23,19 @@ jobs:
 
       - name: Run tests #if npm test throws and error this workflow fails.
         run: npm test
+  linting:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: NPM Install #we now need to install all our dependencies in this environment
+      run: npm ci #npm clean install - does not write to package.json
+
+      -name: Run linting
+      run: npm run lint
+
